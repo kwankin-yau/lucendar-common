@@ -375,7 +375,7 @@ public class Errors {
     }
 
     private static ResourceBundle resourceBundle(Locale locale) {
-        return ResourceBundle.getBundle("info.gratour.common.messages", locale != null ? locale : Locale.getDefault());
+        return ResourceBundle.getBundle("com.lucendar.common.messages", locale != null ? locale : Locale.getDefault());
     }
 
     public static String errorMessage(int errorCode, Locale locale) {

@@ -136,6 +136,27 @@ public class Reply<T> {
         return errCode == Errors.OK;
     }
 
+    public boolean failed() {
+        return !ok();
+    }
+
+    public Reply<T> checked() {
+        if (failed())
+            throw new ErrorWithCode(errCode, message);
+
+        return this;
+    }
+
+    public Reply<T> checkedNonEmpty() {
+        if (failed())
+            throw new ErrorWithCode(errCode, message);
+
+        if (isEmpty())
+            throw new ErrorWithCode(Errors.RECORD_NOT_FOUND);
+
+        return this;
+    }
+
     public boolean isEmpty() {
         return data == null || data.length == 0;
     }
@@ -148,14 +169,14 @@ public class Reply<T> {
         return new Reply<>(errCode, message);
     }
 
-    public static Reply<?> ofUpdateResult(boolean recordUpdated) {
+    public static Reply<Void> ofUpdateResult(boolean recordUpdated) {
         if (recordUpdated)
-            return OK;
+            return OK_VOID;
         else
-            return RECORD_NOT_FOUND;
+            return RECORD_NOT_FOUND_VOID;
     }
 
-    public static Reply<?> ofUpdateResult(int updateRecordCount) {
+    public static Reply<Void> ofUpdateResult(int updateRecordCount) {
         return ofUpdateResult(updateRecordCount > 0);
     }
 
@@ -269,6 +290,7 @@ public class Reply<T> {
     }
 
     public static final Reply<?> RECORD_NOT_FOUND = new Reply<>(Errors.RECORD_NOT_FOUND);
+    public static final Reply<Void> RECORD_NOT_FOUND_VOID = new Reply<>(Errors.RECORD_NOT_FOUND);
     public static <T> Reply<T> recordNotFound() {
         return new Reply<>(Errors.RECORD_NOT_FOUND);
     }
