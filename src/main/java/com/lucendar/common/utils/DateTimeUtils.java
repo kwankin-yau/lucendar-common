@@ -236,10 +236,14 @@ public class DateTimeUtils {
     public static String millisToString(long millis, DateTimeFmt fmt) {
         switch (fmt) {
             case ISO_OFFSET_DATE_TIME:
-            case CONVENIENT_DATE_TIME:
                 return millisToOffsetDateTimeString(millis);
+
+            case CONVENIENT_DATE_TIME:
+                return millisToConvenientDateTimeString(millis);
+
             case CONVENIENT_DATE_TIME_WITH_MILLIS:
                 return millisToConvenientDateTimeStringWithMillis(millis);
+
             default:
                 throw new ErrorWithCode(Errors.INTERNAL_ERROR, String.format("Unhandled DateTimeFmt: %s", fmt));
         }
@@ -269,9 +273,28 @@ public class DateTimeUtils {
 
     public static class BeijingConv {
 
-        public static String millisToString(long epochMillis) {
+        public static OffsetDateTime millisToOdt(long epochMillis) {
             return Instant.ofEpochMilli(epochMillis)
-                    .atOffset(ZONE_OFFSET_BEIJING)
+                    .atOffset(ZONE_OFFSET_BEIJING);
+        }
+
+        public static OffsetDateTime millisToOdtBoxed(Long epochMillis) {
+            if (epochMillis != null)
+                return Instant.ofEpochMilli(epochMillis)
+                        .atOffset(ZONE_OFFSET_BEIJING);
+            else
+                return null;
+        }
+
+        public static String millisToStrBoxed(Long epochMillis) {
+            if (epochMillis != null)
+                return millisToOdt(epochMillis).format(CONVENIENT_DATETIME_FORMATTER);
+            else
+                return null;
+        }
+
+        public static String millisToString(long epochMillis) {
+            return millisToOdt(epochMillis)
                     .format(CONVENIENT_DATETIME_FORMATTER);
         }
 
@@ -285,6 +308,13 @@ public class DateTimeUtils {
                     return null;
                 }
             } else
+                return null;
+        }
+
+        public static Long strToMillis(String s) {
+            if (s != null)
+                return LocalDateTime.parse(s, CONVENIENT_DATETIME_FORMATTER).toInstant(ZONE_OFFSET_BEIJING).toEpochMilli();
+            else
                 return null;
         }
 
@@ -313,18 +343,65 @@ public class DateTimeUtils {
                 return null;
         }
 
+        public static OffsetDateTime strToOdt(String s) {
+            if (s != null)
+                return LocalDateTime.parse(s, CONVENIENT_DATETIME_FORMATTER).atOffset(ZONE_OFFSET_BEIJING);
+            else
+                return null;
+        }
+
+        public static OffsetDateTime tryStrToOdt(String s) {
+            if (s != null) {
+                try {
+                    return LocalDateTime.parse(s, CONVENIENT_DATETIME_FORMATTER).atOffset(ZONE_OFFSET_BEIJING);
+                } catch (Throwable t) {
+                    return null;
+                }
+            } else
+                return null;
+        }
+
+        public static String odtToStr(OffsetDateTime odt) {
+            if (odt != null)
+                return CONVENIENT_DATETIME_FORMATTER.format(odt);
+            else
+                return null;
+        }
+
+        /**
+         *
+         * @param s
+         * @return
+         * @deprecated This method name is too long, use strToOdt instead. Please note that strToOdt accepts null argument
+         * while stringToOffsetDatetime does not.
+         */
+        @Deprecated
         public static OffsetDateTime stringToOffsetDateTime(String s) {
             return LocalDateTime.parse(s, CONVENIENT_DATETIME_FORMATTER).atOffset(ZONE_OFFSET_BEIJING);
         }
 
+        /**
+         *
+         * @param s
+         * @return
+         * @deprecated This method name is too long, use tryStrToOdt instead.
+         */
+        @Deprecated
         public static OffsetDateTime tryStringToOffsetDateTime(String s) {
             if (s != null) {
                 try {
                     return LocalDateTime.parse(s, CONVENIENT_DATETIME_FORMATTER).atOffset(ZONE_OFFSET_BEIJING);
-                } catch(Throwable t) {
+                } catch (Throwable t) {
                     return null;
                 }
             } else
+                return null;
+        }
+
+        public static LocalDateTime strToLdt(String s) {
+            if (s != null)
+                return LocalDateTime.parse(s, CONVENIENT_DATETIME_FORMATTER);
+            else
                 return null;
         }
 

@@ -21,6 +21,7 @@ import java.util.StringJoiner;
 
 public class NetUtils {
 
+
     public static boolean isValidPublicId(String ip) {
         InetAddress addr = null;
 
@@ -151,10 +152,7 @@ public class NetUtils {
 
         @Override
         public String toString() {
-            return new StringJoiner(", ", SocketAddr.class.getSimpleName() + "[", "]")
-                    .add("host='" + host + "'")
-                    .add("port=" + port)
-                    .toString();
+            return host + ":" + port;
         }
     }
 
@@ -244,6 +242,10 @@ public class NetUtils {
 
             public String password() {
                 return password;
+            }
+
+            public String authorizationHeaderValue() {
+                return calcBasicAuthorization(username, password);
             }
 
             @Override

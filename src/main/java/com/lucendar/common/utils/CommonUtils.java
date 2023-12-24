@@ -1,9 +1,8 @@
 package com.lucendar.common.utils;
 
-import com.lucendar.common.types.OsType;
-
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
+import java.net.URLConnection;
 import java.nio.ByteBuffer;
 import java.util.ArrayList;
 import java.util.Base64;
@@ -79,6 +78,34 @@ public class CommonUtils {
         return r;
     }
 
+    private static final Base64.Encoder UrlSafeBase64EncoderNoPadding =
+            Base64.getUrlEncoder().withoutPadding();
+
+    public static String uuidToBase64(UUID uuid, boolean withPadding) {
+        byte[] bytes = new byte[16];
+        ByteBuffer bb = ByteBuffer.wrap(bytes);
+        bb.putLong(uuid.getMostSignificantBits());
+        bb.putLong(uuid.getLeastSignificantBits());
+        Base64.Encoder base64 = withPadding ? Base64.getUrlEncoder() : UrlSafeBase64EncoderNoPadding;
+        return base64.encodeToString(bytes);
+    }
+
+    public static String uuidToBase64(UUID uuid) {
+        return uuidToBase64(uuid, true);
+    }
+
+    public static String uuidToBase64NoPadding(UUID uuid) {
+        return uuidToBase64(uuid, false);
+    }
+
+    public static String uuidBase64() {
+        return uuidToBase64(UUID.randomUUID());
+    }
+
+    public static String uuidBase64NoPadding() {
+        return uuidToBase64(UUID.randomUUID(), false);
+    }
+
     public static String randomUuidString() {
         UUID uuid = UUID.randomUUID();
         return uuid.toString();
@@ -108,5 +135,8 @@ public class CommonUtils {
             return 0;
     }
 
-
+    public static void main(String[] args) {
+        String typ = URLConnection.getFileNameMap().getContentTypeFor("abdd.jpg");
+        System.out.println(typ);
+    }
 }

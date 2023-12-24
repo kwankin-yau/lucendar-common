@@ -7,14 +7,18 @@ public class LazyVar<T> {
     }
 
     private final VarInitializer<T> initializer;
-    private T value;
+    private volatile T value;
     public LazyVar(VarInitializer<T> initializer) {
         this.initializer = initializer;
     }
 
-    public synchronized T get() {
-        if (this.value == null)
-            this.value = this.initializer.init();
+    public T get() {
+        if (this.value == null) {
+            synchronized (this) {
+                if (this.value == null)
+                    this.value = this.initializer.init();
+            }
+        }
 
         return this.value;
     }

@@ -13,7 +13,7 @@ import java.util.function.Consumer;
 
 public class Reply<T> {
 
-    public static interface Mapper<T, C> {
+    public interface Mapper<T, C> {
 
         C map(T entry);
     }
@@ -74,10 +74,6 @@ public class Reply<T> {
     public void setCount(Long count) {
         this.count = count;
     }
-
-//    public boolean isOk() {
-//        return errCode == Errors.OK;
-//    }
 
     public boolean hasData() {
         return data != null && data.length > 0;
@@ -193,6 +189,19 @@ public class Reply<T> {
         return r;
     }
 
+    public static <T> Reply<T> singleOrEmpty(T data) {
+        if (data == null)
+            return empty();
+
+        @SuppressWarnings("unchecked")
+        T[] arr = (T[]) new Object[]{data};
+        Reply<T> r = new Reply<T>(Errors.OK);
+        r.setData(arr);
+        r.setCount(1L);
+
+        return r;
+    }
+
     public static <T> Reply<T> multi(T[] data, long totalRecordCount) {
         Reply<T> r = new Reply<T>(Errors.OK);
         r.setData(data);
@@ -260,6 +269,7 @@ public class Reply<T> {
     }
 
 
+    public static final Reply<?> NULL = null;
     public static final Reply<?> OK = new Reply<>(Errors.OK);
     public static final Reply<Void> OK_VOID = new Reply<>(Errors.OK);
 
@@ -267,6 +277,10 @@ public class Reply<T> {
 
     public static <T> Reply<T> internalError() {
         return new Reply<>(Errors.INTERNAL_ERROR);
+    }
+
+    public static <T> Reply<T> internalError(String message) {
+        return new Reply<>(Errors.INTERNAL_ERROR, message);
     }
 
     public static final Reply<?> AUTHENTICATION_FAILED = new Reply<>(Errors.AUTHENTICATION_FAILED);
@@ -294,6 +308,9 @@ public class Reply<T> {
     public static <T> Reply<T> recordNotFound() {
         return new Reply<>(Errors.RECORD_NOT_FOUND);
     }
+    public static <T> Reply<T> recordNotFound(String message) {
+        return new Reply<>(Errors.RECORD_NOT_FOUND, message);
+    }
 
     public static final Reply<?> ACCESS_DENIED = new Reply<>(Errors.ACCESS_DENIED);
     public static <T> Reply<T> accessDenied() {
@@ -319,10 +336,16 @@ public class Reply<T> {
     public static <T> Reply<T> badRequest() {
         return new Reply<>(Errors.BAD_REQUEST);
     }
+    public static <T> Reply<T> badRequest(String message) {
+        return new Reply<>(Errors.BAD_REQUEST, message);
+    }
 
     public static final Reply<?> INVALID_CONFIG = new Reply<>(Errors.INVALID_CONFIG);
     public static <T> Reply<T> invalidConfig() {
         return new Reply<>(Errors.INVALID_CONFIG);
+    }
+    public static <T> Reply<T> invalidConfig(String message) {
+        return new Reply<>(Errors.INVALID_CONFIG, message);
     }
 
     public static final Reply<?> TIMEOUT = new Reply<>(Errors.TIMEOUT);
@@ -334,15 +357,36 @@ public class Reply<T> {
     public static <T> Reply<T> illegalState() {
         return new Reply<>(Errors.ILLEGAL_STATE);
     }
+    public static <T> Reply<T> illegalState(String message) {
+        return new Reply<>(Errors.ILLEGAL_STATE, message);
+    }
 
     public static final Reply<?> EXECUTION_ERROR = new Reply<>(Errors.EXECUTION_ERROR);
     public static <T> Reply<T> executionError() {
         return new Reply<>(Errors.EXECUTION_ERROR);
     }
+    public static <T> Reply<T> executionError(String message) {
+        return new Reply<>(Errors.EXECUTION_ERROR, message);
+    }
 
     public static final Reply<?> SERVICE_UNAVAILABLE = new Reply<>((Errors.SERVICE_UNAVAILABLE));
     public static <T> Reply<T> serviceUnavailable() {
         return new Reply<>((Errors.SERVICE_UNAVAILABLE));
+    }
+
+    public static final Reply<?> NOT_AUTHENTICATED = new Reply<>((Errors.NOT_AUTHENTICATED));
+    public static <T> Reply<T> notAuthenticated() {
+        return new Reply<>((Errors.NOT_AUTHENTICATED));
+    }
+
+    public static final Reply<?> NOT_ENOUGH_PRIV = new Reply<>((Errors.NOT_ENOUGH_PRIV));
+    public static <T> Reply<T> notEnoughPriv() {
+        return new Reply<>((Errors.NOT_ENOUGH_PRIV));
+    }
+
+    public static final Reply<?> CANCELED = new Reply<>((Errors.CANCELED));
+    public static <T> Reply<T> canceled() {
+        return new Reply<>(Errors.CANCELED);
     }
 
 }

@@ -27,10 +27,12 @@ public class Errors {
 
     public static final int EXECUTION_ERROR = -3;
     public static final String MESSAGE_KEY_EXECUTION_ERROR = "errors.execution";
+    public static final String MESSAGE_KEY_EXECUTION_ERROR_FMT = "errors.execution_fmt";
     public static final String EXECUTION_ERROR_MESSAGE = "Execution error.";
 
     public static final int INVALID_CONFIG = -4;
     public static final String MESSAGE_KEY_INVALID_CONFIG = "errors.invalid_config";
+    public static final String MESSAGE_KEY_INVALID_CONFIG_FMT = "errors.invalid_config_fmt";
     public static final String INVALID_CONFIG_MESSAGE = "Invalid configuration.";
 
     public static final int TIMEOUT = -5;
@@ -39,7 +41,9 @@ public class Errors {
 
     public static final int ILLEGAL_STATE = -6;
     public static final String MESSAGE_KEY_ILLEGAL_STATE = "errors.illegal_state";
+    public static final String MESSAGE_KEY_ILLEGAL_STATE_FMT = "errors.illegal_state_fmt";
     public static final String ILLEGAL_STATE_MESSAGE = "Illegal state.";
+
 
     public static final int INVALID_PARAM = -7;
     public static final String MESSAGE_KEY_INVALID_PARAM = "errors.invalid_param";
@@ -48,6 +52,7 @@ public class Errors {
 
     public static final int RECORD_NOT_FOUND = -8;
     public static final String MESSAGE_KEY_RECORD_NOT_FOUND = "errors.record_not_found";
+    public static final String MESSAGE_KEY_RECORD_NOT_FOUND_FMT = "errors.record_not_found_fmt";
     public static final String RECORD_NOT_FOUND_MESSAGE = "Record not found.";
 
     public static final int AUTHENTICATION_FAILED = -9;
@@ -359,6 +364,17 @@ public class Errors {
             case INVALID_PARAM:
                 return MESSAGE_KEY_INVALID_PARAM_FMT;
 
+            case INVALID_CONFIG:
+                return MESSAGE_KEY_INVALID_CONFIG_FMT;
+
+            case ILLEGAL_STATE:
+                return MESSAGE_KEY_ILLEGAL_STATE_FMT;
+
+            case EXECUTION_ERROR:
+                return MESSAGE_KEY_EXECUTION_ERROR_FMT;
+
+            case RECORD_NOT_FOUND:
+                return MESSAGE_KEY_RECORD_NOT_FOUND_FMT;
 
             case DATA_MISMATCH:
                 return MESSAGE_KEY_DATA_MISMATCH_FMT;
@@ -375,7 +391,10 @@ public class Errors {
     }
 
     private static ResourceBundle resourceBundle(Locale locale) {
-        return ResourceBundle.getBundle("com.lucendar.common.messages", locale != null ? locale : Locale.getDefault());
+        return ResourceBundle.getBundle(
+                "com.lucendar.common.messages",
+                locale != null ? locale : Locale.getDefault()
+        );
     }
 
     public static String errorMessage(int errorCode, Locale locale) {
