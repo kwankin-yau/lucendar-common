@@ -389,4 +389,12 @@ public class Reply<T> {
         return new Reply<>(Errors.CANCELED);
     }
 
+    public static final Reply<?> RETRY = new Reply<>((Errors.RETRY));
+    public static <T> Reply<T> retry() {
+        return new Reply<>(Errors.RETRY);
+    }
+    public static <T> Reply<T> retry(String message) {
+        return new Reply<>(Errors.RETRY, message);
+    }
+
 }
