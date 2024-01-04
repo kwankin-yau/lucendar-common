@@ -4,6 +4,7 @@
 - Move NetUtils from `server-common` to this bundle and translate to java.
 - `com.lucendar.common.utils.DateTimeUtils.BeijingConv` added `millisToOdt`, `millisToOdtBoxed`
 - Introduce `Ref`
+- Introduce `KV`
 
 # v1.0.0
 - Return type of Reply.ofUpdateResult() changed to `Reply[Void]` 
