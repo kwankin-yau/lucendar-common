@@ -135,8 +135,4 @@ public class CommonUtils {
             return 0;
     }
 
-    public static void main(String[] args) {
-        String typ = URLConnection.getFileNameMap().getContentTypeFor("abdd.jpg");
-        System.out.println(typ);
-    }
 }
