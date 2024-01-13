@@ -7,8 +7,14 @@
  *******************************************************************************/
 package com.lucendar.common.types;
 
+/**
+ * Abstract validate result receiver
+ */
 abstract public class AbstractValidateResultReceiver implements ValidateResultReceiver {
 
+    /**
+     * Weather there is any errors occurred
+     */
     protected boolean err;
 
     @Override

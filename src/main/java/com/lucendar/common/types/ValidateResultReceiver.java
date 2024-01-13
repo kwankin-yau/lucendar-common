@@ -7,7 +7,16 @@
  *******************************************************************************/
 package com.lucendar.common.types;
 
+/**
+ * Validate result receiver
+ */
 public interface ValidateResultReceiver {
+
+    /**
+     * Whether validation success
+     *
+     * @return whether validation success
+     */
     boolean ok();
     default boolean error() {
         return !ok();

@@ -2,6 +2,7 @@ package com.lucendar.common.utils;
 
 import java.math.BigDecimal;
 import java.nio.charset.Charset;
+import java.text.Normalizer;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.OffsetDateTime;
@@ -258,5 +259,12 @@ public class StringUtils {
 
     public static String intToHex(int value, int minLen) {
         return intToHex(value, minLen, false);
+    }
+
+    public static String removeNonAsciiChars(String s, boolean preserveEquivalents) {
+        if (preserveEquivalents)
+            s = Normalizer.normalize(s, Normalizer.Form.NFD);
+
+        return s.replaceAll("[^\\x00-\\x7F]", "");
     }
 }

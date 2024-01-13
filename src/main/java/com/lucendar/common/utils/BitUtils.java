@@ -257,9 +257,9 @@ public class BitUtils {
     /**
      * Get right <code>nBits</code> bits of given <code>value</code>.
      *
-     * @param value
-     * @param nBits
-     * @return
+     * @param value the value to test
+     * @param nBits how many bits to get
+     * @return n least-significant bits of the given value
      */
     public static long rightBits(long value, int nBits) {
         if (nBits < 0 || nBits > 64)

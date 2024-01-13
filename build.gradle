@@ -31,44 +31,46 @@ test {
     useJUnitPlatform()
 }
 
-task sourceJar(type: Jar) {
-    from sourceSets.main.allSource
-    archiveClassifier = 'sources'
+java {
+    withJavadocJar()
+    withSourcesJar()
 }
 
 publishing {
-    repositories {
-        maven {
-            name = "my-nuxus"
-            if (project.version.toString().endsWith("-SNAPSHOT")) {
-                name = "snapshots"
-                url = "${snapshotUrl}"
-            } else {
-                name = "releases"
-                url = "${releaseUrl}"
-            }
-
-            credentials {
-                username = "${ossUser}"
-                password = "${ossPwd}"
-            }
-        }
-
-        maven {
-            name = "OSSRH"
-            url = "https://oss.sonatype.org/service/local/staging/deploy/maven2/"
-            credentials {
-                username = "${ossrhUsername}"
-                password = "${ossrhPassword}"
-            }
-        }
-    }
-
     publications {
         maven(MavenPublication) {
             from components.java
-            artifact sourceJar
+
+            pom {
+                name = 'Lucendar common library'
+                packaging = 'jar'
+                // optionally artifactId can be defined here
+                description = 'A common library used in other open source projects.'
+                url = 'https://github.com/kwankin-yau/lucendar-common'
+
+                scm {
+                    connection = 'https://github.com/kwankin-yau/lucendar-common.git'
+                    developerConnection = 'https://github.com/kwankin-yau/lucendar-common.git'
+                    url = 'https://github.com/kwankin-yau/lucendar-common'
+                }
+
+                licenses {
+                    license {
+                        name = 'MIT'
+                        url = 'http://opensource.org/licenses/MIT'
+                    }
+                }
+
+                developers {
+                    developer {
+                        id = 'kky'
+                        name = 'kwankin-yau'
+                        email = 'alphax@vip.163.com'
+                    }
+                }
+            }
         }
+
     }
 }
 
@@ -82,5 +84,6 @@ javadoc {
 }
 
 signing {
-    sign configurations.archives
+    sign publishing.publications.maven
 }
+
