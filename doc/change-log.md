@@ -1,3 +1,7 @@
+# v2.1.0
+## Improvement
+- Add `Errors.OBJECT_NOT_FOUND`
+
 # v2.0.0
 ## Improvement
 - Maven group changed to `com.lucendar`

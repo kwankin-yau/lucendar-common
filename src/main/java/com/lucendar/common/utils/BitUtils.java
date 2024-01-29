@@ -7,7 +7,7 @@ package com.lucendar.common.utils;
 import info.gratour.common.error.ErrorWithCode;
 
 /**
- *
+ * 位操作辅助类
  */
 public class BitUtils {
 
@@ -255,11 +255,11 @@ public class BitUtils {
     // @formatter: on
 
     /**
-     * Get right <code>nBits</code> bits of given <code>value</code>.
+     * Get the right <code>nBits</code> bits of the given <code>value</code>.
      *
-     * @param value the value to test
+     * @param value the value to be tested
      * @param nBits how many bits to get
-     * @return n least-significant bits of the given value
+     * @return the n least-significant bits of the given value
      */
     public static long rightBits(long value, int nBits) {
         if (nBits < 0 || nBits > 64)
@@ -271,10 +271,10 @@ public class BitUtils {
     /**
      * First get <code>nBits</code> of <code>value</code>, and then shift right <code>shiftRightNBits</code>.
      *
-     * @param value
-     * @param nBits
-     * @param shiftRightNBits
-     * @return
+     * @param value the source value
+     * @param nBits the number of least-significant bits expected to be obtained
+     * @param shiftRightNBits the number of bits to be shifted right
+     * @return the right-shifted n bits of the least-significant of the given <code>value</code>.
      */
     public static long shiftRight(long value, int nBits, int shiftRightNBits) {
         value = rightBits(value, nBits);

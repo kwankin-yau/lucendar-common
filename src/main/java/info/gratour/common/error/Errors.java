@@ -48,12 +48,11 @@ public class Errors {
     public static final int INVALID_PARAM = -7;
     public static final String MESSAGE_KEY_INVALID_PARAM = "errors.invalid_param";
     public static final String MESSAGE_KEY_INVALID_PARAM_FMT = "errors.invalid_param_fmt";
-    public static final String INVALID_PARAM_MESSAGE = "Invalid parameter.";
 
-    public static final int RECORD_NOT_FOUND = -8;
+    public static final int OBJECT_NOT_FOUND = -8;
+    public static final int RECORD_NOT_FOUND = OBJECT_NOT_FOUND;
     public static final String MESSAGE_KEY_RECORD_NOT_FOUND = "errors.record_not_found";
     public static final String MESSAGE_KEY_RECORD_NOT_FOUND_FMT = "errors.record_not_found_fmt";
-    public static final String RECORD_NOT_FOUND_MESSAGE = "Record not found.";
 
     public static final int AUTHENTICATION_FAILED = -9;
     public static final String MESSAGE_KEY_AUTHENTICATION_FAILED = "errors.auth_failed";

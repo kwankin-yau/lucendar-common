@@ -5,14 +5,13 @@ plugins {
 }
 
 group = 'com.lucendar'
-version = '2.0.0'
+version = '2.1.0-SNAPSHOT'
 
 compileJava.options.encoding = 'UTF-8'
 sourceCompatibility = '8'
 targetCompatibility = '8'
 
 repositories {
-    mavenLocal()
     mavenCentral()
 }
 
@@ -20,7 +19,6 @@ dependencies {
     implementation 'org.apache.commons:commons-lang3:3.12.0'
     implementation 'commons-validator:commons-validator:1.7'
     implementation 'commons-codec:commons-codec:1.15'
-    implementation 'commons-collections:commons-collections:3.2.2'
     implementation('com.google.code.gson:gson:2.10.1')
 
     testImplementation platform('org.junit:junit-bom:5.9.1')
@@ -78,7 +76,7 @@ publishing {
 javadoc {
     options.encoding = 'UTF-8'
 
-    if(JavaVersion.current().isJava9Compatible()) {
+    if (JavaVersion.current().isJava9Compatible()) {
         options.addBooleanOption('html5', true)
     }
 }
