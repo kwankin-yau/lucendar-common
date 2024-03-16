@@ -233,6 +233,9 @@ public class BitUtils {
     }
 
     // @formatter: off
+    /**
+     * 取整数右边 N 位计算时使用的位掩码。如取右边 n 位，则使用 RIGHT_BIT_MASK[n] 为位运算掩码
+     */
     public static final long[] RIGHT_BIT_MASK = new long[]{
             0x00,
             0x01, 0x03, 0x07, 0x0f,
@@ -242,7 +245,7 @@ public class BitUtils {
             0x1ffff, 0x3ffff, 0x7ffff, 0xfffff,
             0x1fffff, 0x3fffff, 0x7fffff, 0xffffff,
             0x1ffffff, 0x3ffffff, 0x7ffffff, 0xfffffff,
-            0x1fffffff, 0x3fffffff, 0x7fffffff, 0xffffffff,
+            0x1fffffff, 0x3fffffff, 0x7fffffff, 0xffffffffL,
             0x1_ffffffffL, 0x3_ffffffffL, 0x7_ffffffffL, 0xf_ffffffffL,
             0x1f_ffffffffL, 0x3f_ffffffffL, 0x7f_ffffffffL, 0xff_ffffffffL,
             0x1ff_ffffffffL, 0x3ff_ffffffffL, 0x7ff_ffffffffL, 0xfff_ffffffffL,

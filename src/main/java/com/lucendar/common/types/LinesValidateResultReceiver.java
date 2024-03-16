@@ -11,7 +11,7 @@ public class LinesValidateResultReceiver extends AbstractValidateResultReceiver 
 
     @Override
     public void invalidField(String fieldName) {
-        String msg = Errors.errorMessageFormat(Errors.INVALID_PARAM, fieldName);
+        String msg = Errors.errorMessageFormat(Errors.INVALID_CONFIG, fieldName);
         lines.add(msg);
         err = true;
     }
