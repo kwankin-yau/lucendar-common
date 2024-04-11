@@ -11,6 +11,9 @@ import com.google.gson.JsonSerializer;
 import java.lang.reflect.Type;
 import java.util.Base64;
 
+/**
+ * Byte array 的 Base64 存储形式序列化器
+ */
 public class ByteArrayBase64Materializer implements JsonSerializer<byte[]>, JsonDeserializer<byte[]> {
 
     @Override

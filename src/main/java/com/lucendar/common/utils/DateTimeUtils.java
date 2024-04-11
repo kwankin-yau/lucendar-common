@@ -363,7 +363,7 @@ public class DateTimeUtils {
 
         public static String odtToStr(OffsetDateTime odt) {
             if (odt != null)
-                return CONVENIENT_DATETIME_FORMATTER.format(odt);
+                return CONVENIENT_DATETIME_FORMATTER.format(odt.atZoneSameInstant(ZONE_OFFSET_BEIJING));
             else
                 return null;
         }
