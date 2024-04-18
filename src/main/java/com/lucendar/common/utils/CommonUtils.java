@@ -195,7 +195,7 @@ public class CommonUtils {
      *
      * @param a String a.
      * @param b String b.
-     * @return The compare result, 1 for a > b, -1 for a < b, 0 for a == b.
+     * @return The compare result, 1 for a &gt; b, -1 for a &lt; b, 0 for a == b.
      */
     public static int stringCompare(String a, String b) {
         if (a != null) {
@@ -214,7 +214,7 @@ public class CommonUtils {
      *
      * @param a String a.
      * @param b String b.
-     * @return The compare result, 1 for a > b, -1 for a < b, 0 for a == b.
+     * @return The compare result, 1 for a &gt; b, -1 for a &lt; b, 0 for a == b.
      */
     public static int stringCompareIgnoreCase(String a, String b) {
         if (a != null) {

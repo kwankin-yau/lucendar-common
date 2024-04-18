@@ -39,13 +39,16 @@ public class NestedValidateResultReceiver extends AbstractValidateResultReceiver
         if (namespace != null && !namespace.isEmpty())
             fieldName = namespace + "." + fieldName;
 
-        outerReceiver.invalidField(fieldName);
-        err = true;
+        super.invalidField(fieldName);
     }
 
     @Override
-    public void error(String messsage) {
-        outerReceiver.error(messsage);
-        err = true;
+    protected void onError(String message) {
+        outerReceiver.error(message);
+    }
+
+    @Override
+    public void warn(String message) {
+        outerReceiver.warn(message);
     }
 }

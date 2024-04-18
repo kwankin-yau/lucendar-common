@@ -8,12 +8,12 @@
 package com.lucendar.common.types;
 
 /**
- * Abstract validate result receiver
+ * 验证结果接收器基类
  */
 abstract public class AbstractValidateResultReceiver implements ValidateResultReceiver {
 
     /**
-     * Weather there is any errors occurred
+     * 是否发生的错误
      */
     protected boolean err;
 
@@ -22,4 +22,15 @@ abstract public class AbstractValidateResultReceiver implements ValidateResultRe
         return !err;
     }
 
+    /**
+     * 发生错误时的处理。由子类实现
+     * @param message 错误信息
+     */
+    protected abstract void onError(String message);
+
+    @Override
+    public void error(String message) {
+        err = true;
+        onError(message);
+    }
 }

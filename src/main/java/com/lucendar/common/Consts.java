@@ -35,6 +35,6 @@ public class Consts {
     public static final String[] EMPTY_STRING_ARRAY = new String[0];
     public static final int[] EMPTY_INT_ARRAY = new int[0];
 
-    public static final String LINE_BREAK = System.getProperty("line.separator");
+    public static final String LINE_BREAK = System.lineSeparator();
     public static final String LINUX_LINE_BREAK = "\n";
 }

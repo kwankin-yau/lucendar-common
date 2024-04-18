@@ -1,7 +1,5 @@
 package com.lucendar.common.types;
 
-import info.gratour.common.error.Errors;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,16 +8,13 @@ public class LinesValidateResultReceiver extends AbstractValidateResultReceiver 
     private final List<String> lines = new ArrayList<>();
 
     @Override
-    public void invalidField(String fieldName) {
-        String msg = Errors.errorMessageFormat(Errors.INVALID_CONFIG, fieldName);
-        lines.add(msg);
-        err = true;
+    protected void onError(String message) {
+        lines.add("ERROR: " + message);
     }
 
     @Override
-    public void error(String message) {
-        lines.add(message);
-        err = true;
+    public void warn(String message) {
+        lines.add("WARN : " + message);
     }
 
     public List<String> getLines() {

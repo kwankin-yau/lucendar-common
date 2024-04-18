@@ -12,6 +12,7 @@ import java.time.OffsetDateTime;
 import java.time.ZoneId;
 import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.Locale;
 import java.util.concurrent.atomic.AtomicReference;
 
@@ -271,7 +272,46 @@ public class DateTimeUtils {
             return null;
     }
 
+    /**
+     * 北京时区的日期时间惯例格式辅助类
+     */
     public static class BeijingConv {
+
+        /**
+         * 返回给定字符串是否符合日期时间的惯例格式
+         *
+         * @param datetime 所要检查的日期时间字符串
+         * @return 是否符合日期时间的惯例格式
+         */
+        public static boolean isValidStr(String datetime) {
+            if (datetime != null) {
+                try {
+                    //noinspection ResultOfMethodCallIgnored
+                    LocalDateTime.parse(datetime, CONVENIENT_DATETIME_FORMATTER);
+                } catch (DateTimeParseException t) {
+                    return false;
+                }
+
+                return true;
+            } else
+                return false;
+        }
+
+
+        /**
+         * 验证给定字符串是否符合日期时间的惯例格式，不符合时，抛出异常
+         *
+         * @param datetime 所要检查的日期时间字符串
+         * @throws DateTimeParseException 如果格式不符，则抛出此异常
+         */
+        public static void validateStr(String datetime) throws
+                DateTimeParseException {
+            if (datetime == null)
+                throw new NullPointerException("datetime");
+
+            //noinspection ResultOfMethodCallIgnored
+            LocalDateTime.parse(datetime, CONVENIENT_DATETIME_FORMATTER);
+        }
 
         public static OffsetDateTime millisToOdt(long epochMillis) {
             return Instant.ofEpochMilli(epochMillis)
@@ -369,7 +409,6 @@ public class DateTimeUtils {
         }
 
         /**
-         *
          * @param s
          * @return
          * @deprecated This method name is too long, use strToOdt instead. Please note that strToOdt accepts null argument
@@ -381,7 +420,6 @@ public class DateTimeUtils {
         }
 
         /**
-         *
          * @param s
          * @return
          * @deprecated This method name is too long, use tryStrToOdt instead.

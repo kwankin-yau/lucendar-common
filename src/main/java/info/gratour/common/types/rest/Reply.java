@@ -235,6 +235,7 @@ public class Reply<T> {
         @SuppressWarnings("unchecked")
         T[] arr = (T[]) new Object[0];
         r.setData(arr);
+        r.setCount(0L);
         return r;
     }
 
