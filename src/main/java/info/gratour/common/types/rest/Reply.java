@@ -172,6 +172,10 @@ public class Reply<T> {
             return RECORD_NOT_FOUND_VOID;
     }
 
+    public static Reply<Void> okWith(String message) {
+        return new Reply<>(Errors.OK, message);
+    }
+
     public static Reply<Void> ofUpdateResult(int updateRecordCount) {
         return ofUpdateResult(updateRecordCount > 0);
     }
