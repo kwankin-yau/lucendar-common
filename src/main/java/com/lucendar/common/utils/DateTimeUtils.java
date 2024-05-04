@@ -338,6 +338,10 @@ public class DateTimeUtils {
                     .format(CONVENIENT_DATETIME_FORMATTER);
         }
 
+        public static String nowString() {
+            return millisToString(System.currentTimeMillis());
+        }
+
         public static Long tryStringToMillis(String s) {
             if (s != null) {
                 try {

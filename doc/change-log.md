@@ -2,7 +2,7 @@
 ## Improvement
 - 引入 `com.lucendar.common.types.Validatable`
 - 引入 `DefaultValidateResult`
-- `BeijingConv` 增加 `isValidStr`, `validateStr` 方法
+- `BeijingConv` 增加 `isValidStr`, `validateStr`, `nowString` 方法
 - 引入 `KVList`。`KV` 增加 `of` 方法
 
 ## Fixed
