@@ -8,6 +8,7 @@
 ## Fixed
 - 将 `LinesValidateResultReceiver.invalidField` 抛出的异常代码修正为 INVALID_CONFIG，而非 INVALID_PARAM
 - 修正`Reply.empty()`方法返回的 `Reply` 无 `count` 属性的 bug.
+- 修正 `ErrorWithCode.invalidConfigFmt()` 方法创建不正确的错误码和信息格式。
 
 # v2.1.0
 ## Improvement

@@ -132,7 +132,7 @@ public class ErrorWithCode extends RuntimeException {
     }
 
     public static ErrorWithCode invalidConfigFmt(String fmt, Object...args) {
-        return invalidParam(String.format(fmt, args));
+        return new ErrorWithCode(Errors.INVALID_CONFIG, String.format(fmt, args));
     }
 
     public static ErrorWithCode timeout() {
