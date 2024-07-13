@@ -2,28 +2,41 @@ package com.lucendar.common.utils;
 
 import info.gratour.common.error.ErrorWithCode;
 import info.gratour.common.error.Errors;
+import org.checkerframework.checker.nullness.qual.NonNull;
+import org.checkerframework.checker.nullness.qual.Nullable;
 
-import java.time.Clock;
-import java.time.Duration;
-import java.time.Instant;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.OffsetDateTime;
-import java.time.ZoneId;
-import java.time.ZoneOffset;
+import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.Locale;
 import java.util.concurrent.atomic.AtomicReference;
 
+/**
+ * 日期时间辅助类
+ */
 public class DateTimeUtils {
 
+    /**
+     * 日期时间格式
+     */
     public enum DateTimeFmt {
+
+        /**
+         * ISO OFFSET Date time 格式
+         */
         ISO_OFFSET_DATE_TIME,
+
+        /**
+         * 常规格式：yyyy-MM-dd HH:mm:ss
+         */
         CONVENIENT_DATE_TIME,
+
+        /**
+         * 带毫秒的常规格式：yyyy-MM-dd HH:mm:ss.SSS
+         */
         CONVENIENT_DATE_TIME_WITH_MILLIS;
 
-        public static DateTimeFmt detect(String dateTimeStr) {
+        public static DateTimeFmt detect(@NonNull String dateTimeStr) {
             if (dateTimeStr.contains("T"))
                 return DateTimeFmt.ISO_OFFSET_DATE_TIME;
             else {
@@ -68,7 +81,8 @@ public class DateTimeUtils {
      *
      * @return null if zoneId not found or invalid.
      */
-    public static ZoneId zoneIdOf(String zoneId) {
+    @Nullable
+    public static ZoneId zoneIdOf(@Nullable String zoneId) {
         if (zoneId == null || zoneId.isEmpty())
             return null;
 
@@ -84,6 +98,7 @@ public class DateTimeUtils {
      *
      * @return null if offset out of range.
      */
+    @Nullable
     public static ZoneId zoneIdOfOffset(int zoneOffsetMinutes) {
         try {
             return ZoneOffset.ofTotalSeconds(zoneOffsetMinutes * 60);
@@ -92,6 +107,7 @@ public class DateTimeUtils {
         }
     }
 
+    @Nullable
     public static ZoneId zoneIdOfOffsetHour(int zoneOffsetHours) {
         try {
             return ZoneOffset.ofTotalSeconds(zoneOffsetHours * 60 * 60);
@@ -112,7 +128,7 @@ public class DateTimeUtils {
                     .format(DateTimeFormatter.ISO_OFFSET_DATE_TIME);
         }
 
-        public static OffsetDateTime parseDateTime(String value) {
+        public static OffsetDateTime parseDateTime(@NonNull String value) {
             if (value.contains("T"))
                 return OffsetDateTime.parse(value, DateTimeFormatter.ISO_OFFSET_DATE_TIME);
             else {
@@ -125,7 +141,7 @@ public class DateTimeUtils {
             }
         }
 
-        public static long stringToMillis(String value) {
+        public static long stringToMillis(@NonNull String value) {
             return parseDateTime(value).toInstant().toEpochMilli();
         }
     }
@@ -137,7 +153,7 @@ public class DateTimeUtils {
                 .format(CONVENIENT_DATETIME_FORMATTER);
     }
 
-    public static String dateTimeToFileName(LocalDateTime dt) {
+    public static String dateTimeToFileName(@NonNull LocalDateTime dt) {
         return dt.format(FILE_NAME_DATETIME_FORMATTER);
     }
 
@@ -145,7 +161,7 @@ public class DateTimeUtils {
         return OffsetDateTime.now().format(DateTimeFormatter.ISO_OFFSET_DATE_TIME);
     }
 
-    public static String offsetDateTimeNowString(ZoneId zoneId) {
+    public static String offsetDateTimeNowString(@NonNull ZoneId zoneId) {
         return OffsetDateTime.now().atZoneSameInstant(zoneId).format(DateTimeFormatter.ISO_OFFSET_DATE_TIME);
     }
 
@@ -157,7 +173,7 @@ public class DateTimeUtils {
      * @param duration
      * @return
      */
-    public static String humanReadableDuration(Duration duration) {
+    public static String humanReadableDuration(@NonNull Duration duration) {
         return duration.toString().substring(2)
                 .replaceAll("(\\d[HMS])(?!$)", "$1 ")
                 .toLowerCase();
@@ -169,11 +185,11 @@ public class DateTimeUtils {
                 .format(DateTimeFormatter.ISO_OFFSET_DATE_TIME);
     }
 
-    public static long offsetDateTimeStringToMillis(String s) {
+    public static long offsetDateTimeStringToMillis(@NonNull String s) {
         return OffsetDateTime.parse(s, DateTimeFormatter.ISO_OFFSET_DATE_TIME).toInstant().toEpochMilli();
     }
 
-    public static OffsetDateTime parseDateTime(String value) {
+    public static OffsetDateTime parseDateTime(@NonNull String value) {
         if (value.contains("T"))
             return OffsetDateTime.parse(value, DateTimeFormatter.ISO_OFFSET_DATE_TIME);
         else {
@@ -186,7 +202,7 @@ public class DateTimeUtils {
         }
     }
 
-    public static OffsetDateTime parseDateTime(String value, DateTimeFmt fmt) {
+    public static OffsetDateTime parseDateTime(@NonNull String value, @NonNull DateTimeFmt fmt) {
         switch (fmt) {
             case ISO_OFFSET_DATE_TIME:
                 return OffsetDateTime.parse(value, DateTimeFormatter.ISO_OFFSET_DATE_TIME);
@@ -203,7 +219,7 @@ public class DateTimeUtils {
         }
     }
 
-    public static long stringToMillis(String value) {
+    public static long stringToMillis(@NonNull String value) {
         return parseDateTime(value).toInstant().toEpochMilli();
     }
 
@@ -234,7 +250,7 @@ public class DateTimeUtils {
                 .format(DateTimeFormatter.ISO_OFFSET_DATE_TIME);
     }
 
-    public static String millisToString(long millis, DateTimeFmt fmt) {
+    public static String millisToString(long millis, @NonNull DateTimeFmt fmt) {
         switch (fmt) {
             case ISO_OFFSET_DATE_TIME:
                 return millisToOffsetDateTimeString(millis);
@@ -250,7 +266,7 @@ public class DateTimeUtils {
         }
     }
 
-    public static LocalDate tryStringToDate(String s) {
+    public static LocalDate tryStringToDate(@NonNull String s) {
         if (s != null) {
             try {
                 return LocalDate.parse(s, DateTimeFormatter.ISO_LOCAL_DATE);
@@ -261,7 +277,8 @@ public class DateTimeUtils {
             return null;
     }
 
-    public static LocalDate stringToDate(String s) {
+    @Nullable
+    public static LocalDate stringToDate(@Nullable String s) {
         if (s != null) {
             try {
                 return LocalDate.parse(s, DateTimeFormatter.ISO_LOCAL_DATE);
@@ -283,7 +300,7 @@ public class DateTimeUtils {
          * @param datetime 所要检查的日期时间字符串
          * @return 是否符合日期时间的惯例格式
          */
-        public static boolean isValidStr(String datetime) {
+        public static boolean isValidStr(@NonNull String datetime) {
             if (datetime != null) {
                 try {
                     //noinspection ResultOfMethodCallIgnored
@@ -304,7 +321,7 @@ public class DateTimeUtils {
          * @param datetime 所要检查的日期时间字符串
          * @throws DateTimeParseException 如果格式不符，则抛出此异常
          */
-        public static void validateStr(String datetime) throws
+        public static void validateStr(@NonNull String datetime) throws
                 DateTimeParseException {
             if (datetime == null)
                 throw new NullPointerException("datetime");
@@ -318,7 +335,8 @@ public class DateTimeUtils {
                     .atOffset(ZONE_OFFSET_BEIJING);
         }
 
-        public static OffsetDateTime millisToOdtBoxed(Long epochMillis) {
+        @Nullable
+        public static OffsetDateTime millisToOdtBoxed(@Nullable Long epochMillis) {
             if (epochMillis != null)
                 return Instant.ofEpochMilli(epochMillis)
                         .atOffset(ZONE_OFFSET_BEIJING);
@@ -326,7 +344,8 @@ public class DateTimeUtils {
                 return null;
         }
 
-        public static String millisToStrBoxed(Long epochMillis) {
+        @Nullable
+        public static String millisToStrBoxed(@Nullable Long epochMillis) {
             if (epochMillis != null)
                 return millisToOdt(epochMillis).format(CONVENIENT_DATETIME_FORMATTER);
             else
@@ -342,7 +361,8 @@ public class DateTimeUtils {
             return millisToString(System.currentTimeMillis());
         }
 
-        public static Long tryStringToMillis(String s) {
+        @Nullable
+        public static Long tryStringToMillis(@Nullable String s) {
             if (s != null) {
                 try {
                     return LocalDateTime.parse(s, CONVENIENT_DATETIME_FORMATTER)
@@ -355,14 +375,15 @@ public class DateTimeUtils {
                 return null;
         }
 
-        public static Long strToMillis(String s) {
-            if (s != null)
+        @Nullable
+        public static Long strToMillis(@Nullable String s) {
+            if (s != null && !s.isEmpty())
                 return LocalDateTime.parse(s, CONVENIENT_DATETIME_FORMATTER).toInstant(ZONE_OFFSET_BEIJING).toEpochMilli();
             else
                 return null;
         }
 
-        public static long stringToMillis(String s) {
+        public static long stringToMillis(@NonNull String s) {
             return LocalDateTime.parse(s, CONVENIENT_DATETIME_FORMATTER).toInstant(ZONE_OFFSET_BEIJING).toEpochMilli();
         }
 
@@ -370,12 +391,13 @@ public class DateTimeUtils {
             return Instant.ofEpochSecond(epochSeconds).atOffset(ZONE_OFFSET_BEIJING).format(CONVENIENT_DATETIME_FORMATTER);
         }
 
-        public static long stringToSeconds(String s) {
+        public static long stringToSeconds(@NonNull String s) {
             return LocalDateTime.parse(s, CONVENIENT_DATETIME_FORMATTER)
                     .toInstant(ZONE_OFFSET_BEIJING).toEpochMilli() / 1000L;
         }
 
-        public static Long tryStringToSeconds(String s) {
+        @Nullable
+        public static Long tryStringToSeconds(@Nullable String s) {
             if (s != null) {
                 try {
                     return LocalDateTime.parse(s, CONVENIENT_DATETIME_FORMATTER)
@@ -387,14 +409,16 @@ public class DateTimeUtils {
                 return null;
         }
 
-        public static OffsetDateTime strToOdt(String s) {
+        @Nullable
+        public static OffsetDateTime strToOdt(@Nullable String s) {
             if (s != null)
                 return LocalDateTime.parse(s, CONVENIENT_DATETIME_FORMATTER).atOffset(ZONE_OFFSET_BEIJING);
             else
                 return null;
         }
 
-        public static OffsetDateTime tryStrToOdt(String s) {
+        @Nullable
+        public static OffsetDateTime tryStrToOdt(@Nullable String s) {
             if (s != null) {
                 try {
                     return LocalDateTime.parse(s, CONVENIENT_DATETIME_FORMATTER).atOffset(ZONE_OFFSET_BEIJING);
@@ -405,7 +429,8 @@ public class DateTimeUtils {
                 return null;
         }
 
-        public static String odtToStr(OffsetDateTime odt) {
+        @Nullable
+        public static String odtToStr(@Nullable OffsetDateTime odt) {
             if (odt != null)
                 return CONVENIENT_DATETIME_FORMATTER.format(odt.atZoneSameInstant(ZONE_OFFSET_BEIJING));
             else
@@ -419,7 +444,7 @@ public class DateTimeUtils {
          * while stringToOffsetDatetime does not.
          */
         @Deprecated
-        public static OffsetDateTime stringToOffsetDateTime(String s) {
+        public static OffsetDateTime stringToOffsetDateTime(@NonNull String s) {
             return LocalDateTime.parse(s, CONVENIENT_DATETIME_FORMATTER).atOffset(ZONE_OFFSET_BEIJING);
         }
 
@@ -429,7 +454,8 @@ public class DateTimeUtils {
          * @deprecated This method name is too long, use tryStrToOdt instead.
          */
         @Deprecated
-        public static OffsetDateTime tryStringToOffsetDateTime(String s) {
+        @Nullable
+        public static OffsetDateTime tryStringToOffsetDateTime(@Nullable String s) {
             if (s != null) {
                 try {
                     return LocalDateTime.parse(s, CONVENIENT_DATETIME_FORMATTER).atOffset(ZONE_OFFSET_BEIJING);
@@ -440,7 +466,8 @@ public class DateTimeUtils {
                 return null;
         }
 
-        public static LocalDateTime strToLdt(String s) {
+        @Nullable
+        public static LocalDateTime strToLdt(@Nullable String s) {
             if (s != null)
                 return LocalDateTime.parse(s, CONVENIENT_DATETIME_FORMATTER);
             else

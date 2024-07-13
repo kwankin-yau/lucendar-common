@@ -4,11 +4,12 @@
 - 引入 `DefaultValidateResult`
 - `BeijingConv` 增加 `isValidStr`, `validateStr`, `nowString` 方法
 - 引入 `KVList`。`KV` 增加 `of` 方法
-
+- `com.lucendar.common.utils.DateTimeUtils.BeijingConv.strToMillis` 变更，如果输入的字符串为空字符串，将返回 null
 ## Fixed
 - 将 `LinesValidateResultReceiver.invalidField` 抛出的异常代码修正为 INVALID_CONFIG，而非 INVALID_PARAM
 - 修正`Reply.empty()`方法返回的 `Reply` 无 `count` 属性的 bug.
 - 修正 `ErrorWithCode.invalidConfigFmt()` 方法创建不正确的错误码和信息格式。
+- DateTimeUtils 的函数补充 @Nullable, @NonNull 注解
 
 # v2.1.0
 ## Improvement
