@@ -5,6 +5,7 @@
 - `BeijingConv` 增加 `isValidStr`, `validateStr`, `nowString` 方法
 - 引入 `KVList`。`KV` 增加 `of` 方法
 - `com.lucendar.common.utils.DateTimeUtils.BeijingConv.strToMillis` 变更，如果输入的字符串为空字符串，将返回 null
+- 引入 `UpdateKind` 枚举
 ## Fixed
 - 将 `LinesValidateResultReceiver.invalidField` 抛出的异常代码修正为 INVALID_CONFIG，而非 INVALID_PARAM
 - 修正`Reply.empty()`方法返回的 `Reply` 无 `count` 属性的 bug.
