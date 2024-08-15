@@ -183,6 +183,7 @@ public class CommonUtils {
 
     /**
      * Generate a random UUID and return the `toString()` result of the generated UUID.
+     *
      * @return The UUID string representation.
      */
     public static String randomUuidString() {
@@ -228,4 +229,39 @@ public class CommonUtils {
             return 0;
     }
 
+
+    /**
+     * Wrap index if out of range.
+     * <pre>
+     * <code>
+     * for (int i = -6; i &lt;= 6; i++) {
+     *      int idx = wrapIndex(i,3);
+            System.out.println(idx);
+     * }
+     * </code>
+     * </pre>
+     * will produce:
+     * <pre>
+     * 0
+     * 1
+     * 2
+     * 0
+     * 1
+     * 2
+     * 0
+     * 1
+     * 2
+     * 0
+     * 1
+     * 2
+     * 0
+     * </pre>
+     *
+     * @param idx        the index to be wrapped
+     * @param max_plus_1 maximum index plus 1
+     * @return Wrapped index.
+     */
+    public static int wrapIndex(int idx, int max_plus_1) {
+        return ((idx % max_plus_1) + max_plus_1) % max_plus_1;
+    }
 }
