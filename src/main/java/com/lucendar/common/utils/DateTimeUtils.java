@@ -117,10 +117,20 @@ public class DateTimeUtils {
     }
 
     public static class CachedZoneOffset {
-        public static final AtomicReference<ZoneOffset> cachedZoneOffset = new AtomicReference<>();
+        private static final AtomicReference<ZoneOffset> cachedZoneOffset = new AtomicReference<>();
 
         public static void recheck() {
             cachedZoneOffset.set(defaultZoneOffset());
+        }
+
+        public static ZoneOffset get() {
+            ZoneOffset r = cachedZoneOffset.get();
+            if (r == null) {
+                r = defaultZoneOffset();
+                cachedZoneOffset.set(r);
+            }
+
+            return r;
         }
 
         public static String millisToOffsetDateTimeString(long epochMillis) {
