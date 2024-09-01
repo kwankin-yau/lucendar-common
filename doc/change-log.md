@@ -13,6 +13,7 @@
 - 修正 `ErrorWithCode.invalidConfigFmt()` 方法创建不正确的错误码和信息格式。
 - `DateTimeUtils` 的函数补充 @Nullable, @NonNull 注解
 - `DateTimeUtils.CachedZoneOffset.cachedZoneOffset` 改为私有类成员，增加 `get` 方法
+- `StringUtils` 增加 `emptyAsNull` 方法
 
 # v2.1.0
 ## Improvement

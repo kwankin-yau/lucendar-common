@@ -10,14 +10,42 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.Base64;
 
+/**
+ * 字符串辅助类
+ */
 public class StringUtils {
 
+    /**
+     * 检查给定字符串是否 null 或空字符串
+     * @param s 给定字符串
+     * @return 是否 null 或空字符串
+     */
     public static boolean isNullOrEmpty(String s) {
         return s == null || s.isEmpty();
     }
 
+    /**
+     * 检查给定字符串，如果是 null ，则返回空字符串。否则返回 `s`
+     * @param s 给定字符串
+     * @return 如果是 null ，则返回空字符串。否则返回 `s`
+     */
     public static String nullAsEmpty(String s) {
         return s == null ? "" : s;
+    }
+
+    /**
+     * 检查给定字符串，如果是空字符串，则返回 null ，否则返回 `s`
+     * @param s 给定字符串
+     * @return 如果是空字符串，则返回 null ，否则返回 `s`
+     */
+    public static String emptyAsNull(String s) {
+        if (s != null) {
+            if (s.isEmpty())
+                return null;
+            else
+                return s;
+        } else
+            return null;
     }
 
     public static <T> String mkString(T[] arr, String start, String sep, String end) {
