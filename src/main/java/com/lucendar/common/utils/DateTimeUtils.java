@@ -5,6 +5,7 @@ import info.gratour.common.error.Errors;
 import org.checkerframework.checker.nullness.qual.NonNull;
 import org.checkerframework.checker.nullness.qual.Nullable;
 
+import java.sql.Timestamp;
 import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -480,6 +481,13 @@ public class DateTimeUtils {
         public static LocalDateTime strToLdt(@Nullable String s) {
             if (s != null)
                 return LocalDateTime.parse(s, CONVENIENT_DATETIME_FORMATTER);
+            else
+                return null;
+        }
+
+        public static OffsetDateTime tsToOdt(@Nullable Timestamp ts) {
+            if (ts != null)
+                return OffsetDateTime.ofInstant(Instant.ofEpochMilli(ts.getTime()), ZONE_OFFSET_BEIJING);
             else
                 return null;
         }
