@@ -26,7 +26,7 @@ public class CommonUtils {
     }
 
     /**
-     * Get instance fields(non-static) declarations of given class
+     * Get instance fields (non-static) declarations of given class.
      *
      * @param clzz the given class
      * @return Instance fields declarations
@@ -192,10 +192,10 @@ public class CommonUtils {
     }
 
     /**
-     * Compare two string in case-sensitive manner. Used in sort method.
+     * Compare two strings in case-sensitive manner. Used in sort method.
      *
-     * @param a String a.
-     * @param b String b.
+     * @param a String `a`.
+     * @param b String `b`.
      * @return The compare result, 1 for a &gt; b, -1 for a &lt; b, 0 for a == b.
      */
     public static int stringCompare(String a, String b) {
@@ -211,10 +211,10 @@ public class CommonUtils {
     }
 
     /**
-     * Compare tow string in case-insensitive manner. Used in sort method.
+     * Compare tow strings in case-insensitive manner. Used in sort method.
      *
-     * @param a String a.
-     * @param b String b.
+     * @param a String `a`.
+     * @param b String `b`.
      * @return The compare result, 1 for a &gt; b, -1 for a &lt; b, 0 for a == b.
      */
     public static int stringCompareIgnoreCase(String a, String b) {
