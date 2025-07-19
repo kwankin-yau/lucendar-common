@@ -5,25 +5,58 @@ import info.gratour.common.error.ErrorWithCode;
 import info.gratour.common.error.Errors;
 
 import java.lang.reflect.Type;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.StringJoiner;
+import java.util.*;
 import java.util.function.Consumer;
 
+/**
+ * API返回结果封装对象
+ *
+ * @param <T>
+ */
 public class Reply<T> {
 
+    /**
+     * 数据元素映射接口
+     *
+     * @param <T> 源类型
+     * @param <C> 目标类型
+     */
     public interface Mapper<T, C> {
 
+        /**
+         * 映射数据元素
+         * @param entry 源数据元素
+         * @return 目标数据元素
+         */
         C map(T entry);
     }
 
     public static final Type RAW_REPLY_TYPE = new TypeToken<Reply<Void>>(){}.getType();
 
+    /**
+     * 错误码，参见 `info.gratour.common.error.Errors` 的定义
+     */
     private int errCode;
+
+    /**
+     * 错误消息
+     */
     private String message;
+
+    /**
+     * 数据数组
+     */
     private T[] data;
+
+    /**
+     * 不分页时查询的总记录数
+     */
     private Long count;
+
+    /**
+     * 附加属性
+     */
+    private Map<String, Object> attrs;
 
     public Reply() {
     }
@@ -73,6 +106,29 @@ public class Reply<T> {
 
     public void setCount(Long count) {
         this.count = count;
+    }
+
+    public Map<String, Object> getAttrs() {
+        return attrs;
+    }
+
+    public void setAttrs(Map<String, Object> attrs) {
+        this.attrs = attrs;
+    }
+
+    public boolean hasAttr(String name) {
+        return attrs != null && attrs.containsKey(name);
+    }
+
+    public Object getAttr(String name) {
+        return attrs != null ? attrs.get(name) : null;
+    }
+
+    public Reply<T> setAttr(String name, Object value) {
+        if (attrs == null) attrs = new HashMap<>();
+        attrs.put(name, value);
+
+        return this;
     }
 
     public boolean hasData() {

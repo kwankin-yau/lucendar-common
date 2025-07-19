@@ -1,3 +1,9 @@
+# v2.2.1 [2025-07-13]
+## Improvement
+- `Reply` 增加 `attr` 属性及相当操作方法
+- `ErrorWithCode` 增加 `notSupported` 静态方法
+- `CommonUtils` 增加 `stackTraceToString` 静态方法
+
 # v2.2.0 [2024-03-05]
 ## Improvement
 - 引入 `com.lucendar.common.types.Validatable`

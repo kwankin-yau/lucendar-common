@@ -1,5 +1,8 @@
 package com.lucendar.common.utils;
 
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.io.StringWriter;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import java.net.URLConnection;
@@ -263,5 +266,19 @@ public class CommonUtils {
      */
     public static int wrapIndex(int idx, int max_plus_1) {
         return ((idx % max_plus_1) + max_plus_1) % max_plus_1;
+    }
+
+    /**
+     * 将异常的调用栈信息转换成字符串
+     * @param e 异常
+     * @return 字符串
+     */
+    public static String stackTraceToString(Throwable e) {
+        try (StringWriter sw = new StringWriter(); PrintWriter pw = new PrintWriter(sw)) {
+            e.printStackTrace(pw);
+            return sw.toString();
+        } catch (IOException ex) {
+            throw new RuntimeException(ex);
+        }
     }
 }

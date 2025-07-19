@@ -163,6 +163,10 @@ public class ErrorWithCode extends RuntimeException {
         );
     }
 
+    public static ErrorWithCode notSupported() {
+        return new ErrorWithCode(Errors.NOT_SUPPORTED);
+    }
+
     public static ErrorWithCode format(int errCode, String formatArg) {
         String message = Errors.errorMessageFormat(errCode, formatArg);
         return new ErrorWithCode(errCode, message);
