@@ -1,3 +1,7 @@
+# v2.2.2 [2025-07-13]
+## Improvement
+- `Errors` 增加 `DEPENDENCY_NOT_AVAILABLE` 错误码
+
 # v2.2.1 [2025-07-13]
 ## Improvement
 - `Reply` 增加 `attr` 属性及相当操作方法

@@ -5,7 +5,7 @@ plugins {
 }
 
 group = 'com.lucendar'
-version = '2.2.1'
+version = '2.2.2-SNAPSHOT'
 
 compileJava.options.encoding = 'UTF-8'
 sourceCompatibility = '8'

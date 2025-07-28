@@ -160,6 +160,9 @@ public class Errors {
     public static final int SERVICE_BUSY = -107;
     public static final String MESSAGE_KEY_SERVICE_BUSY = "errors.service_busy";
 
+    public static final int DEPENDENCY_NOT_AVAILABLE = -108;
+    public static final String MESSAGE_KEY_DEPENDENCY_NOT_AVAILABLE = "errors.dependency_not_available";
+
     // script errors
     public static final int BAD_FORMAT = -200;
     public static final String MESSAGE_KEY_BAD_FORMAT = "errors.bad_format";
@@ -320,6 +323,9 @@ public class Errors {
 
             case SERVICE_BUSY:
                 return MESSAGE_KEY_SERVICE_BUSY;
+
+            case DEPENDENCY_NOT_AVAILABLE:
+                return MESSAGE_KEY_DEPENDENCY_NOT_AVAILABLE;
 
             case NO_CONNECTION_AVAILABLE:
                 return MESSAGE_KEY_NO_CONNECTION_AVAILABLE;
